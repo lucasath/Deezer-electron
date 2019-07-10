@@ -9,7 +9,7 @@ let mainWindow
 function createWindow () {
   // Create the browser window.
   mainWindow = new BrowserWindow({
-    icon: __dirname + '/Icons/deezer.png',
+    icon: __dirname + '/icons/icon.png',
     width: 1000,
     height: 650,
     minWidth: 1000,
@@ -23,7 +23,11 @@ function createWindow () {
   mainWindow.loadURL('https://www.deezer.com/br/login')
 
   // Open the DevTools.
-  mainWindow.webContents.openDevTools()
+  //mainWindow.webContents.openDevTools()
+  
+  mainWindow.on('close', () => {
+    app.exit()
+  })
 
   // Emitted when the window is closed.
   mainWindow.on('closed', function () {
@@ -53,7 +57,7 @@ app.on('activate', function () {
   if (mainWindow === null) createWindow()
 })
 
-//Menu.setApplicationMenu(null)
+Menu.setApplicationMenu(null)
 
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.
