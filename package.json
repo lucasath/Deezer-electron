@@ -1,6 +1,6 @@
 {
-  "name": "Deezer",
-  "version": "1.0.0",
+  "name": "Deezer-Electron",
+  "version": "1.0.2",
   "description": "Deezer Aplication",
   "main": "main.js",
   "scripts": {
