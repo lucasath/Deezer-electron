@@ -1,6 +1,6 @@
 {
   "name": "Deezer-Electron",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Deezer Aplication",
   "main": "main.js",
   "scripts": {
@@ -10,9 +10,20 @@
   },
   "build": {
     "appId": "yourappid",
+    "win": {
+      "target": "NSIS",
+      "icon": "icons/icon.ico"
+    },
+    "mac": {
+      "target": [
+        "pkg"
+      ],
+      "icon": "icons/icon.icns"
+    },
     "linux": {
       "target": [
-        "deb"
+        "deb",
+        "rpm"
       ]
     }
   },
@@ -30,6 +41,7 @@
   "devDependencies": {
     "electron": "^5.0.6",
     "electron-builder": "^20.44.4",
-    "electron-packager": "^14.0.1"
+    "electron-packager": "^14.0.1",
+    "rpmbuild": "^0.0.22"
   }
 }
