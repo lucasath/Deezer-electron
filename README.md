@@ -22,6 +22,6 @@ Windows :
 
 https://github.com/lucasath/Deezer-electron/raw/master/dist/Deezer-Electron%20Setup%201.0.3.exe
 
-#License
+# License
 
 This project is licensed under the MIT License - see the LICENSE file for details
