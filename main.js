@@ -9,6 +9,7 @@ let mainWindow
 function createWindow () {
   // Create the browser window.
   mainWindow = new BrowserWindow({
+    icon: __dirname + '/Icons/deezer.png',
     width: 1000,
     height: 650,
     minWidth: 1000,
