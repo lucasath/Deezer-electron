@@ -1,10 +1,11 @@
 // Modules to control application life and create native browser window
-const {app, BrowserWindow, Menu} = require('electron')
+const {app, BrowserWindow, Menu, Tray} = require('electron')
 const path = require('path')
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow
+let appIcon = null
 
 function createWindow () {
   // Create the browser window.
@@ -18,6 +19,8 @@ function createWindow () {
       preload: path.join(__dirname, 'preload.js')
     }
   })
+
+  
 
   // and load the index.html of the app.
   mainWindow.loadURL('https://www.deezer.com/br/login')
@@ -36,12 +39,21 @@ function createWindow () {
     // when you should delete the corresponding element.
     mainWindow = null
   })
+
+  mainWindow.on('minimize',function(event){
+    event.preventDefault();
+    mainWindow.hide();
+    tray= new Tray('icons/icon.png')
+    tray.setToolTip('Deezer-Electron')
+  });
 }
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
-app.on('ready', createWindow)
+app.on('ready', () => {
+  createWindow();
+})
 
 // Quit when all windows are closed.
 app.on('window-all-closed', function () {
