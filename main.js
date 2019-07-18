@@ -1,32 +1,33 @@
 // Modules to control application life and create native browser window
-const {app, BrowserWindow, Menu, Tray} = require('electron')
+const {app, BrowserWindow, Menu, Tray, ipcMain } = require('electron')
 const path = require('path')
+const icon = 'icons/icon.png'
+const trayMenu = require('./tray')
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow
-let appIcon = null
+let tray
 
 function createWindow () {
   // Create the browser window.
   mainWindow = new BrowserWindow({
-    icon: __dirname + '/icons/icon.png',
+    icon: __dirname + icon,
     width: 1000,
     height: 650,
     minWidth: 1000,
     minHeight: 650,
     webPreferences: {
-      preload: path.join(__dirname, 'preload.js')
+      preload: path.join(__dirname, 'preload.js'),
+      nodeIntegration:true,
     }
   })
-
-  
 
   // and load the index.html of the app.
   mainWindow.loadURL('https://www.deezer.com/br/login')
 
   // Open the DevTools.
-  //mainWindow.webContents.openDevTools()
+  mainWindow.webContents.openDevTools()
   
   mainWindow.on('close', () => {
     app.exit()
@@ -42,17 +43,31 @@ function createWindow () {
 
   mainWindow.on('minimize',function(event){
     event.preventDefault();
+    // This method will be hide to tray
     mainWindow.hide();
-    tray= new Tray('icons/icon.png')
-    tray.setToolTip('Deezer-Electron')
   });
+
+  mainWindow.on('restore',function(event){
+    event.preventDefault();
+    // this method restore main window from the tray
+    mainWindow.show();
+    mainWindow.focus();
+  })
+
 }
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
 app.on('ready', () => {
+  // Create main Window
   createWindow();
+  
+  // load tray ico and menu tray ico
+  tray= new Tray(icon);
+  tray.setToolTip('Deezer');
+  tray.setContextMenu(trayMenu.geraTray(mainWindow));
+    
 })
 
 // Quit when all windows are closed.
@@ -61,7 +76,6 @@ app.on('window-all-closed', function () {
   // to stay active until the user quits explicitly with Cmd + Q
   if (process.platform !== 'darwin') app.quit()
 })
-
 
 app.on('activate', function () {
   // On macOS it's common to re-create a window in the app when the
