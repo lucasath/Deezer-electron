@@ -14,13 +14,8 @@
       "target": "NSIS",
       "icon": "icons/icon.ico"
     },
-    "mac": {
-      "target": [
-        "pkg"
-      ],
-      "icon": "icons/icon.icns"
-    },
     "linux": {
+      "category": "Player",
       "icon": "icons/icon.png",
       "target": [
         "deb",

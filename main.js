@@ -7,14 +7,14 @@ const shortcuts= require('./shortcuts')
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
-const icon = 'icons/icon.png'
+
 let mainWindow;
-let tray
+let tray;
 
 function createWindow () {
   // Create the browser window.
   mainWindow = new BrowserWindow({
-    icon: __dirname + icon,
+    icon: __dirname + '/icons/icon.png',
     width: 1000,
     height: 650,
     minWidth: 1000,
@@ -59,7 +59,7 @@ function createWindow () {
 
 function otherWindow(){
   otherWindow = new BrowserWindow({
-    icon: __dirname + icon,
+    icon: __dirname + '/icons/icon.png',
     width: 250,
     height: 80,
     x: 1110,
@@ -87,7 +87,7 @@ app.on('ready', () => {
   createWindow();
   
   // load tray ico and menu tray ico
-  tray= new Tray(icon);
+  tray= new Tray(__dirname + '/icons/icon.png');
   tray.setToolTip('Deezer');
   tray.setContextMenu(trayMenu.geraTray(mainWindow));
   
