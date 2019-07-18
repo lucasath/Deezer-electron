@@ -16,5 +16,18 @@ module.exports = {
         win.webContents.executeJavaScript(`
             document.querySelector('#page_player > div > div.player-controls > ul > li:nth-child(5) > div > button').click();
         `)
+    },
+
+    soundUp(win){
+        win.webContents.executeJavaScript(`
+            
+        `)
+    },
+
+    soundDown(win){
+        win.webContents.executeJavaScript(`
+
+        `)
     }
+
 }

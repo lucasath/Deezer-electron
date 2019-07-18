@@ -1,5 +1,5 @@
 const { Menu } = require('electron');
-const player = require('./player')
+const player = require('./player');
 
 module.exports = {
     // This method is the tray menu

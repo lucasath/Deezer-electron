@@ -1,6 +1,6 @@
 {
   "name": "Deezer-Electron",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Deezer Aplication",
   "main": "main.js",
   "scripts": {
@@ -21,6 +21,7 @@
       "icon": "icons/icon.icns"
     },
     "linux": {
+      "icon": "icons/icon.png",
       "target": [
         "deb",
         "rpm"
