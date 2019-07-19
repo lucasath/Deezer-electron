@@ -56,6 +56,19 @@ function createWindow () {
   })
 
 }
+// prevent multiple stances
+const gotTheLock = app.requestSingleInstanceLock()
+if (!gotTheLock) {
+  app.quit()
+} else {
+  app.on('second-instance', (event, commandLine, workingDirectory) => {
+    // Someone tried to run a second instance, we should focus our window.
+    if (mainWindow) {
+      if (mainWindow.isMinimized()) mainWindow.restore()
+      mainWindow.focus()
+    }
+  })
+}
 
 function otherWindow(){
   otherWindow = new BrowserWindow({
@@ -88,8 +101,11 @@ app.on('ready', () => {
   
   // load tray ico and menu tray ico
   tray= new Tray(__dirname + '/icons/icon.png');
-  tray.setToolTip('Deezer');
+  tray.on('click', ()=> {
+    mainWindow.restore();
+  })
   tray.setContextMenu(trayMenu.geraTray(mainWindow));
+  tray.setToolTip('Deezer');
   
   // load keyboard Shortcuts
   shortcuts.create(mainWindow);
