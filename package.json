@@ -16,7 +16,6 @@
     },
     "linux": {
       "category": "Player",
-      "icon": "icons/icon.png",
       "target": [
         "deb",
         "rpm"
