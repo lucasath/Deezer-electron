@@ -38,5 +38,8 @@
     "electron-builder": "^20.44.4",
     "electron-packager": "^14.0.1",
     "rpmbuild": "^0.0.22"
+  },
+  "dependencies": {
+    "node-notifier": "^5.4.0"
   }
 }

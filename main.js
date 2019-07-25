@@ -8,8 +8,8 @@ const shortcuts= require('./shortcuts')
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 
-let mainWindow;
-let tray;
+let mainWindow=null;
+let tray=null;
 
 function createWindow () {
   // Create the browser window.
@@ -70,27 +70,6 @@ if (!gotTheLock) {
   })
 }
 
-function otherWindow(){
-  otherWindow = new BrowserWindow({
-    icon: __dirname + '/icons/icon.png',
-    width: 250,
-    height: 80,
-    x: 1110,
-    y: 660,
-    resizable: false,
-    alwaysOnTop: true,
-    frame: false,
-    focusable: false,
-    skipTaskbar: true,
-    hide: true,
-    webPreferences: {
-      nodeIntegration:true,
-    }
-  })
-  otherWindow.loadURL(`file://${__dirname}/index.html`)
-  otherWindow.hide();
-
-}
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
@@ -98,15 +77,15 @@ function otherWindow(){
 app.on('ready', () => {
   // Create main Window
   createWindow();
-  
   // load tray ico and menu tray ico
   tray= new Tray(__dirname + '/icons/icon.png');
-  tray.on('click', ()=> {
-    mainWindow.restore();
-  })
+  tray.setIgnoreDoubleClickEvents(true)
+  
   tray.setContextMenu(trayMenu.geraTray(mainWindow));
   tray.setToolTip('Deezer');
-  
+
+  tray.on('click', () => (  mainWindow.restore()));
+    
   // load keyboard Shortcuts
   shortcuts.create(mainWindow);
   
