@@ -28,7 +28,7 @@ function createWindow () {
   mainWindow.loadURL('https://www.deezer.com/br/login')
 
   // Open the DevTools.
-  mainWindow.webContents.openDevTools()
+  //mainWindow.webContents.openDevTools()
   
   mainWindow.on('close', () => {
     app.exit()
