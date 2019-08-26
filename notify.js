@@ -1,17 +1,41 @@
+var exe=false;
 module.exports = {
-    create(window) {
+    _create(window) {
+    
         window.webContents.executeJavaScript(`
-            let notification = {
-                title: 'Deezer',
-                body: document.querySelector('#page_player > div > div.player-track > div > div.track-heading > div.track-title > div > div > div:nth-child(1) > a:nth-child(1)').textContent,
-                icon: document.querySelector('#page_player > div > div.player-options > ul > li:nth-child(2) > button > figure > div > img').src
-            }
             
-        `)     
+            notification = {
+                title: 'Deezer',
+                body: document.querySelector('#page_player > div > div.player-track > div > div.track-heading > div.track-title > div > div').textContent,
+                icon: document.querySelector('#page_player > div > div.player-options > ul > li:nth-child(2) > button > figure > div > img').src
+            };
+                        
+        `)  
+           
     },
     notify(window){
+        
+        if(!exe){   
+            exe=true; 
+            setTimeout(()=>{ 
+                this._update(window);
+                window.webContents.executeJavaScript(`
+                    myNotification = new Notification(notification.title,notification);
+                    setTimeout(function() { myNotification.close() }, 2500);
+                `)
+                exe=false;
+            },1500);
+        }
+        
+
+    },
+    _update(window){
+    
+        this._create(window);
         window.webContents.executeJavaScript(`
-            let myNotification = new Notification(notification.title,notification)
-        `)
+            notification.body= document.querySelector('#page_player > div > div.player-track > div > div.track-heading > div.track-title > div > div').textContent;
+            notification.icon= document.querySelector('#page_player > div > div.player-options > ul > li:nth-child(2) > button > figure > div > img').src;
+            `)
+        
     }
 }

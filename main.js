@@ -28,7 +28,7 @@ function createWindow () {
   mainWindow.loadURL('https://www.deezer.com/br/login')
 
   // Open the DevTools.
-  //mainWindow.webContents.openDevTools()
+  mainWindow.webContents.openDevTools()
   
   mainWindow.on('close', () => {
     app.exit()
@@ -53,8 +53,7 @@ function createWindow () {
     // this method restore main window from the tray
     mainWindow.show();
     mainWindow.focus();
-  })
-
+  });
 }
 // prevent multiple stances
 const gotTheLock = app.requestSingleInstanceLock()
@@ -71,6 +70,7 @@ if (!gotTheLock) {
 }
 
 
+
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
@@ -84,10 +84,11 @@ app.on('ready', () => {
   tray.setContextMenu(trayMenu.geraTray(mainWindow));
   tray.setToolTip('Deezer');
 
-  tray.on('click', () => (  mainWindow.restore()));
+  tray.on('click', () =>  mainWindow.restore());
     
   // load keyboard Shortcuts
   shortcuts.create(mainWindow);
+
   
 })
 
